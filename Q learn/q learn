@@ -1,0 +1,52 @@
+import numpy as np
+import gym
+
+# Create the environment
+env = gym.make("FrozenLake-v1")
+
+# Set the hyperparameters
+alpha = 0.8
+gamma = 0.95
+epsilon = 0.1
+
+# Create and initialize the Q-table
+num_states = env.observation_space.n
+num_actions = env.action_space.n
+Q = np.zeros((num_states, num_actions))
+
+# Train the model
+num_episodes = 1000
+for episode in range(num_episodes):
+    state = env.reset()
+    done = False
+    while not done:
+        # Choose an action using the epsilon-greedy policy
+        if np.random.rand() < epsilon:
+            action = env.action_space.sample()
+        else:
+            action = np.argmax(Q[state, :])
+
+        # Perform the chosen action
+        next_state, reward, done, _ = env.step(action)
+
+        # Update the Q-value for the current state-action pair
+        Q[state, action] = (1 - alpha) * Q[state, action] + alpha * (reward + gamma * np.max(Q[next_state, :]))
+
+        # Set the next state as the current state
+        state = next_state
+
+# Test the trained model
+num_episodes = 100
+num_steps = []
+for episode in range(num_episodes):
+    state = env.reset()
+    done = False
+    steps = 0
+    while not done:
+        action = np.argmax(Q[state, :])
+        state, reward, done, _ = env.step(action)
+        steps += 1
+    num_steps.append(steps)
+
+# Print the average number of steps taken per episode
+print("Average number of steps:", np.mean(num_steps))
