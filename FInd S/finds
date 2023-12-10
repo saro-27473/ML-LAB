@@ -1,0 +1,78 @@
+// CODE 1
+def find_s_algorithm(data):
+    hypothesis = data[0]
+    for example in data:
+        if example[-1] == 'Yes':
+            for i in range(len(hypothesis)):
+                if example[i] != hypothesis[i]:
+                    hypothesis[i] = '?'
+    return hypothesis
+data = [
+    ['Sunny', 'Warm', 'Normal', 'Strong', 'Warm', 'Same', 'Yes'],
+    ['Sunny', 'Warm', 'High', 'Strong', 'Warm', 'Same', 'Yes'],
+    ['Rainy', 'Cold', 'High', 'Strong', 'Warm', 'Change', 'No'],
+    ['Sunny', 'Warm', 'High', 'Strong', 'Cool', 'Change', 'Yes']
+]
+
+hypothesis = find_s_algorithm(data)
+print(hypothesis)
+
+// CODE 1 OUTPUT:
+   ['Sunny', 'Warm', '?', 'Strong', '?', '?', 'Yes']
+
+***********************************************************************
+// CODE 2
+import pandas as pd
+
+# Load data from CSV
+data = pd.read_csv('weatherdata.csv')
+
+# Extract features (attributes) and labels
+X_weather = data.iloc[:, :-1].values
+y_weather = data['PlayTennis'].values
+
+# Initialize the hypothesis with the most general hypothesis (use '?' for unknown values)
+hypothesis_weather = ['?'for _ in range(X_weather.shape[1])]
+
+# Apply the Find-S algorithm
+for i in range(len(X_weather)):
+    
+    print(hypothesis_weather,"\n")
+    print(X_weather[i]," ",y_weather[i])
+    if y_weather[i] == 'Yes':
+        for j in range(X_weather.shape[1]):
+            if hypothesis_weather[j] == '?':
+                hypothesis_weather[j] = X_weather[i, j]
+            elif hypothesis_weather[j] != X_weather[i, j]:
+                hypothesis_weather[j] = '?'
+
+print("Final hypothesis:", hypothesis_weather)
+
+// CODE 2 OUTPUT:
+['Sunny', 'Warm', '?', 'Strong', '?', '?', 'Yes']
+Matplotlib is building the font cache; this may take a moment.
+['?', '?', '?', '?'] 
+
+['Sunny' 'Hot' 'High' False]   No
+['?', '?', '?', '?'] 
+
+['Sunny' 'Hot' 'High' True]   No
+['?', '?', '?', '?'] 
+
+['Overcast' 'Hot' 'High' False]   Yes
+['Overcast', 'Hot', 'High', False] 
+
+['Rainy' 'Mild' 'High' False]   Yes
+['?', '?', 'High', False] 
+
+['Rainy' 'Cool' 'Normal' False]   Yes
+['Rainy', 'Cool', '?', False] 
+
+['Rainy' 'Cool' 'Normal' True]   No
+['Rainy', 'Cool', '?', False] 
+
+['Overcast' 'Cool' 'Normal' True]   Yes
+['?', 'Cool', 'Normal', '?'] 
+
+['Sunny' 'Mild' 'High' False]   No
+Final hypothesis: ['?', 'Cool', 'Normal', '?']
