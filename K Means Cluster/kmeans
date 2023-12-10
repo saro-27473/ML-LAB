@@ -1,0 +1,24 @@
+
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.cluster import KMeans
+
+# Generate sample data
+np.random.seed(0)
+X = np.random.rand(100, 2)
+
+# Create and fit the K-Means model
+k = 4  # Number of clusters
+kmeans = KMeans(n_clusters=k)
+kmeans.fit(X)
+
+# Get cluster labels and centroids
+cluster_labels = kmeans.labels_
+cluster_centers = kmeans.cluster_centers_
+
+# Visualize the clusters
+plt.scatter(X[:, 0], X[:, 1], c=cluster_labels, cmap='viridis')
+plt.scatter(cluster_centers[:, 0], cluster_centers[:, 1], c='red', s=200, marker='X')
+plt.title('K-Means Clustering')
+plt.show()
+
