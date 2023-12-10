@@ -6,7 +6,7 @@ responses = {
     "how are you": "I'm just a chatbot, but thanks for asking!",
     "bye": "Goodbye! Have a great day.",
     "faculty name": "Ramya mam",
-    "boomer": "That's my friend Baranidharan",
+    "friend": "That's my friend Saravanan",
     "tell a joke": "Why did the computer keep freezing? Because it left its Windows open!",
     "favorite color": "I'm just a chatbot, so I don't have a favorite color.",
     "age": "I don't age like humans, I'm always up-to-date!",
