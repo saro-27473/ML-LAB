@@ -1,0 +1,6 @@
+Glucose,BP,Skin,Insulin,Obesity,Outcome
+Hyper,High,dull,Normal,greater,Yes
+Hyper,High,glow,Normal,lesser,No
+Hypo,High,glow,Normal,greater,Yes
+Hyper,High,glow,High,lesser,Yes
+Hypo,High,glow,High,lesser,No
